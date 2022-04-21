@@ -20,6 +20,8 @@ npm i @material-ui/icons @material-ui/core
 
 npm i axios react-router-dom 
 
+
+
 --In the Server Folder--
 
 install mongoose, cors and initialize node:
@@ -27,3 +29,6 @@ install mongoose, cors and initialize node:
 npm init -y
 npm i mongoose express cors
 
+install bcrypt and login authentication:
+
+npm install bcrypt jsonwebtoken cookie-parser dotenv

@@ -6,15 +6,9 @@ Run the following code to have correct dependencies
 
 npm init 
 
-//Setting react to correct version:
-
-npm i --save react@17.0.2 react-dom@17.0.2
-
-
-
 //Material Ui dependencies:
 
-npm i @material-ui/icons @material-ui/core
+npm install @mui/material @emotion/react @emotion/styled
 
 //other necessary dependencies (axios & react router dom)
 

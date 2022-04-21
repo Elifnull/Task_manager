@@ -8,7 +8,7 @@ npm init
 
 //Setting react to correct version:
 
-npm install --save react@17.0.2 react-dom@17.0.2
+npm i --save react@17.0.2 react-dom@17.0.2
 
 
 
@@ -31,4 +31,4 @@ npm i mongoose express cors
 
 install bcrypt and login authentication:
 
-npm install bcrypt jsonwebtoken cookie-parser dotenv
+npm i bcrypt jsonwebtoken cookie-parser dotenv

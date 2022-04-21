@@ -16,7 +16,7 @@ npm i --save react@17.0.2 react-dom@17.0.2
 
 npm i @material-ui/icons @material-ui/core
 
-//other dependencies
+//other necessary dependencies (axios & react router dom)
 
 npm i axios react-router-dom 
 

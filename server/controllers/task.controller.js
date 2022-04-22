@@ -9,7 +9,7 @@ module.exports = {
         const decodedJWT = jwt.decode(req.cookies.usertoken,{
             complete:true
         })
-        // newTaskObj.createdBy = decodedJWT.payload.id;
+        newTaskObj.createdBy = decodedJWT.payload.id;
         newTaskObj.save()
 
             .then((newTask)=>{
@@ -44,14 +44,17 @@ module.exports = {
     },
 
     getMyOwnedTasks: (req, res)=>{
-        if(req.jwtpayload.username !== req.params.username){
+        console.log("0000000")
+        if(req.jwtpayload.user._id !== req.params.user._id){
             console.log("not the user");
-
-            User.findOne({username: req.params.username})
+            console.log("111111111111111");
+            User.findOne({id: req.params.user._id})
                 .then((userNotLoggedIn)=>{
-                    Workout.find({createdBy: userNotLoggedIn._id})
-                        .populate("createdBy", "username")
+                    console.log("2222222222");
+                    Task.find({createdBy: userNotLoggedIn._id})
+                        .populate("createdBy", "firstName lastName")
                         .then((tasksOwnedByUser)=>{
+                            console.log("3333333333")
                             console.log(tasksOwnedByUser);
                             res.json(tasksOwnedByUser);
                         })
@@ -79,16 +82,17 @@ module.exports = {
 
     },
 
-    getAllTasks: (res)=>{
-        Task.find({}).sort({TaskName:1})
-        .then((allTasks)=>{
-            res.json(allTasks);
-        })
-        .catch((err)=>{
-            console.log(err);
-            res.status(400).json(err);
-        })
+    getAllTasks: (req, res) => {
+        Task.find()
+            .then((allTasks) => {
+                res.json(allTasks);
+            })
+            .catch((err) => {
+                console.log("Find All Tasks failed");
+                res.json({ message: "Something went wrong in getAllTasks", error: err })
+            })
     },
+
 
     deleteTask: (req, res)=>{
         Task.deleteOne({_id: req.params.id})

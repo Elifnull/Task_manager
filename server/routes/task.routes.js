@@ -7,6 +7,6 @@ module.exports = (app) =>{
     app.delete('/api/delete/:id', TaskController.deleteTask);
     app.get('/api/task/:id', TaskController.getOneTask);
     app.get('/api/alltasks', TaskController.getAllTasks);
-    app.get('/api/myownedtasks/:id"', authenticate, TaskController.getMyOwnedTasks);
+    app.get('/api/myownedtasks/:username"', authenticate, TaskController.getMyOwnedTasks);
     // app.get('/myassignedtasks', TaskController.getMyAssignedTasks);
 }

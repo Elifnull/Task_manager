@@ -1,9 +1,17 @@
 const Task = require('../models/task.model');
+const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     
     createTask: (req, res)=>{
-        Task.create(req.body)
+        const newTaskObj = new Task(req.body);
+        const decodedJWT = jwt.decode(req.cookies.usertoken,{
+            complete:true
+        })
+        newTaskObj.createdBy = decodedJWT.payload.id;
+        newTaskObj.save()
+
             .then((newTask)=>{
                 res.json(newTask);
             })
@@ -24,8 +32,30 @@ module.exports = {
             })
     },
 
+    getMyAssignedTasks: (req, res)=>{
+        Task.find({taskAssignment:req.user._id}).sort({TaskName:1})
+            .then((assignedTasks)=>{
+                res.json(assignedTasks);
+            })
+            .catch((err)=>{
+                console.log(err);
+                res.status(400).json(err);
+            })
+    },
+
+    getMyOwnedTasks: (req, res)=>{
+        Task.find({createdBy:req.user._id}).sort({TaskName:1})
+            .then((ownedTasks)=>{
+                res.json(ownedTasks);
+            })
+            .catch((err)=>{
+                console.log(err);
+                res.status(400).json(err);
+            })
+    },
+
     getAllTasks: (res)=>{
-        Task.find({}).collation({locale:'en',strength: 2}).sort({TaskName:1})
+        Task.find({}).sort({TaskName:1})
         .then((allTasks)=>{
             res.json(allTasks);
         })
@@ -61,5 +91,5 @@ module.exports = {
                 console.log(err);
                 res.status(400).json(err);
             })
-    },
+    }
 }

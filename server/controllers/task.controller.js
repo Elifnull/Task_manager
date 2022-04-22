@@ -24,8 +24,30 @@ module.exports = {
             })
     },
 
+    getMyAssignedTasks: (req, res)=>{
+        Task.find({taskAssignment:req.user._id}).sort({TaskName:1})
+            .then((assignedTasks)=>{
+                res.json(assignedTasks);
+            })
+            .catch((err)=>{
+                console.log(err);
+                res.status(400).json(err);
+            })
+    },
+
+    getMyOwnedTasks: (req, res)=>{
+        Task.find({createdBy:req.user._id}).sort({TaskName:1})
+            .then((ownedTasks)=>{
+                res.json(ownedTasks);
+            })
+            .catch((err)=>{
+                console.log(err);
+                res.status(400).json(err);
+            })
+    },
+
     getAllTasks: (res)=>{
-        Task.find({}).collation({locale:'en',strength: 2}).sort({TaskName:1})
+        Task.find({}).sort({TaskName:1})
         .then((allTasks)=>{
             res.json(allTasks);
         })
@@ -61,5 +83,5 @@ module.exports = {
                 console.log(err);
                 res.status(400).json(err);
             })
-    },
+    }
 }

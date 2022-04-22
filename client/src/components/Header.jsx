@@ -8,6 +8,8 @@ const Header = () =>{
 
     const [user, setUser]= useState("")
 
+    const userIdTest = "testID";
+
     const navigate = useNavigate();
 
     const logout = (e) => {
@@ -58,7 +60,9 @@ const Header = () =>{
         <Typography variant="h6" component="div">
             Hello {user? user: null}
         </Typography>
-        
+        <Box container sx={{ flexGrow: 1 }}>
+        <Button color="inherit"onClick={()=>navigate(`/mytasks/${userIdTest}`)}>My Tasks</Button>
+        </Box>
         <Button color="inherit"onClick={logout}>Logout</Button>
         </Toolbar>
     </AppBar>
@@ -70,4 +74,4 @@ const Header = () =>{
 export default Header;
 
 
-// sx={{ flexGrow: 1 }}
+// 

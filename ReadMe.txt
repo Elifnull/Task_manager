@@ -10,6 +10,8 @@ npm init
 
 npm install @mui/material @emotion/react @emotion/styled
 
+npm install @mui/icons-material
+
 //other necessary dependencies (axios & react router dom)
 
 npm i axios react-router-dom 

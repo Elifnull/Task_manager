@@ -79,16 +79,15 @@ module.exports = {
 
     },
 
-    getAllTasks: (req, res)=>{
-        Task.find()
-            .then((allTasks)=>{
-                console.log(allTasks);
-                res.json(allTasks);
-            })
-            .catch((err)=>{
-                console.log("Error");
-                res.json({ message: "FindAll Error", error: err })
-            })
+    getAllTasks: (res)=>{
+        Task.find({}).sort({TaskName:1})
+        .then((allTasks)=>{
+            res.json(allTasks);
+        })
+        .catch((err)=>{
+            console.log(err);
+            res.status(400).json(err);
+        })
     },
 
     deleteTask: (req, res)=>{

@@ -44,14 +44,39 @@ module.exports = {
     },
 
     getMyOwnedTasks: (req, res)=>{
-        Task.find({createdBy:req.user._id}).sort({TaskName:1})
-            .then((ownedTasks)=>{
-                res.json(ownedTasks);
-            })
-            .catch((err)=>{
-                console.log(err);
-                res.status(400).json(err);
-            })
+        if(req.jwtpayload.username !== req.params.username){
+            console.log("not the user");
+
+            User.findOne({username: req.params.username})
+                .then((userNotLoggedIn)=>{
+                    Workout.find({createdBy: userNotLoggedIn._id})
+                        .populate("createdBy", "username")
+                        .then((tasksOwnedByUser)=>{
+                            console.log(tasksOwnedByUser);
+                            res.json(tasksOwnedByUser);
+                        })
+                })
+                .catch((err)=>{
+                    console.log(err);
+                    res.status(400).json(err);
+                })
+        }
+
+        else{
+            console.log("current user")
+            console.log("req.jwtpayload.id:", req.jwtpayload.id);
+            Workout.find({ createdBy: req.jwtpayload.id })
+                .populate("createdBy", "username")
+                .then((tasksOwnedByLoggedInUser) => {
+                    console.log(tasksOwnedByLoggedInUser);
+                    res.json(tasksOwnedByLoggedInUser);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.status(400).json(err);
+                })
+        }
+
     },
 
     getAllTasks: (res)=>{

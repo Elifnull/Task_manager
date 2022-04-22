@@ -1,9 +1,17 @@
 const Task = require('../models/task.model');
+const User = require("../models/user.model");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
     
     createTask: (req, res)=>{
-        Task.create(req.body)
+        const newTaskObj = new Task(req.body);
+        const decodedJWT = jwt.decode(req.cookies.usertoken,{
+            complete:true
+        })
+        newTaskObj.createdBy = decodedJWT.payload.id;
+        newTaskObj.save()
+
             .then((newTask)=>{
                 res.json(newTask);
             })

@@ -23,6 +23,7 @@ module.exports = {
 
     getOneTask: (req, res)=>{
         Task.findById({_id: req.params.id})
+            .populate("createdBy", "firstName lastName username")
             .then((oneTask)=>{
                 res.json(oneTask);
             })
@@ -32,23 +33,24 @@ module.exports = {
             })
     },
 
-    getMyAssignedTasks: (req, res)=>{
-        Task.find({taskAssignment:req.user._id}).sort({TaskName:1})
-            .then((assignedTasks)=>{
-                res.json(assignedTasks);
-            })
-            .catch((err)=>{
-                console.log(err);
-                res.status(400).json(err);
-            })
-    },
+    // getMyAssignedTasks: (req, res)=>{
+    //     Task.find({taskAssignment:req.user._id}).sort({TaskName:1})
+    //         .then((assignedTasks)=>{
+    //             res.json(assignedTasks);
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err);
+    //             res.status(400).json(err);
+    //         })
+    // },
 
     getMyOwnedTasks: (req, res)=>{
+
         if(req.jwtpayload.username !== req.params.username){
             User.findOne({username: req.params.username})
                 .then((userNotLoggedIn)=>{
                     Task.find({createdBy: userNotLoggedIn._id})
-                        .populate("createdBy", "firstName lastName")
+                        .populate("createdBy", "username")
                         .then((tasksOwnedByUser)=>{
                             console.log(tasksOwnedByUser);
                             res.json(tasksOwnedByUser);
@@ -63,7 +65,7 @@ module.exports = {
         else{
             console.log("current user")
             console.log("req.jwtpayload.id:", req.jwtpayload.id);
-            Workout.find({ createdBy: req.jwtpayload.id })
+            Task.find({ createdBy: req.jwtpayload.id })
                 .populate("createdBy", "username")
                 .then((tasksOwnedByLoggedInUser) => {
                     console.log(tasksOwnedByLoggedInUser);
@@ -79,6 +81,7 @@ module.exports = {
 
     getAllTasks: (req, res) => {
         Task.find()
+            .populate("createdBy", "firstName lastName username")
             .then((allTasks) => {
                 res.json(allTasks);
             })
@@ -108,6 +111,7 @@ module.exports = {
                 new: true,
                 runValidators: true
             })
+            .populate("createdBy", "firstName lastName username")
             .then((updatedTask)=>{
                 res.json(updatedTask);
             })

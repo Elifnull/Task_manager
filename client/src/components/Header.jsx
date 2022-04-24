@@ -1,8 +1,14 @@
 import react, {useEffect, useState} from "react";
 import { AppBar,Toolbar, Typography, Box, Button, Menu, MenuItem, IconButton } from '@mui/material';
 import {Link, useNavigate} from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 import axios from "axios";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { style } from "@mui/system";
+
+
 
 const Header = () =>{
 
@@ -11,7 +17,7 @@ const Header = () =>{
     const userIdTest = "testID";
 
     const navigate = useNavigate();
-
+    const theme = createTheme();
     const logout = (e) => {
         axios
             .post(
@@ -45,33 +51,55 @@ const Header = () =>{
     }, [])
 
     return (
-    <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="static">
-        <Toolbar>
-        <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={()=>navigate("/alltasks")}>
-            <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" component="div">
-            Hello {user? user: null}
-        </Typography>
-        <Box container sx={{ flexGrow: 1 }}>
-        <Button color="inherit"onClick={()=>navigate(`/mytasks/${userIdTest}`)}>My Tasks</Button>
-        </Box>
-        <Button color="inherit"onClick={logout}>Logout</Button>
-        </Toolbar>
-    </AppBar>
-    </Box>
+        <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppBar position="relative">
+            <Toolbar>
+                <IconButton
+                color="inherit"
+                onClick={()=>navigate("/alltasks")}
+                >
+            <HomeIcon sx={{ mr: 2 }} 
+            
+            fontSize="large"
+            />
+            </IconButton>
+            <Typography variant="h4" color="inherit" noWrap sx={{ flexGrow: 1 }}>
+                Hello {user? user: null}
+            </Typography>
+            <Box container>
+            <Button color="inherit"onClick={logout} size='large' endIcon={<LogoutIcon fontSize="large"/>} style={{marginRight: "3vh"}}>Logout</Button>
+            </Box>
+            </Toolbar>
+        </AppBar>
+        </ThemeProvider>
+    
     );
-}
+};
 
 
 export default Header;
 
 
-// 
+/*
+<AppBar position="static">
+<Toolbar>
+<IconButton
+    size="large"
+    edge="start"
+    color="inherit"
+    aria-label="menu"
+    sx={{ mr: 2 }}
+    onClick={()=>navigate("/alltasks")}>
+    <HomeIcon fontSize="large"/>
+</IconButton>
+<Typography variant="h6" component="div">
+    Hello {user? user: null}
+</Typography>
+<Box container sx={{ flexGrow: 1 }}>
+<Button color="inherit"onClick={()=>navigate(`/mytasks/${userIdTest}`)}>My Tasks</Button>
+</Box>
+<Button color="inherit"onClick={logout}>Logout</Button>
+</Toolbar>
+</AppBar> 
+*/

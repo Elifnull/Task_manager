@@ -54,7 +54,7 @@ const Header = () =>{
         <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppBar position="relative">
-            <Toolbar>
+            <Toolbar style={{padding: "2vh"}}>
                 <IconButton
                 color="inherit"
                 onClick={()=>navigate("/alltasks")}

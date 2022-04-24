@@ -53,8 +53,8 @@ const Header = () =>{
     return (
         <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="relative">
-            <Toolbar style={{padding: "2vh"}}>
+        <AppBar position="relative" >
+            <Toolbar>
                 <IconButton
                 color="inherit"
                 onClick={()=>navigate("/alltasks")}
@@ -68,7 +68,7 @@ const Header = () =>{
                 Hello {user? user: null}
             </Typography>
             <Box container>
-            <Button color="inherit"onClick={logout} size='large' endIcon={<LogoutIcon fontSize="large"/>} style={{marginRight: "3vh"}}>Logout</Button>
+            <Button color="inherit" onClick={logout} size='large' endIcon={<LogoutIcon fontSize="large"/>} style={{marginRight: "3vh"}}>Logout</Button>
             </Box>
             </Toolbar>
         </AppBar>

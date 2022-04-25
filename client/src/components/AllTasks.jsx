@@ -1,4 +1,4 @@
-import react from "react";
+import react, { useEffect } from "react";
 import Header from "./Header";
 import React, { useState } from 'react';
 import axios from 'axios';
@@ -23,6 +23,16 @@ const AllTasks = () =>{
     const navigate = useNavigate();
     const photoArray = [1,2,3,4,5,6]  //test variables for mapping
     
+    useEffect(()=>{
+        axios.get('http://localhost:8000/api/alltasks')
+            .then(response =>{
+                console.log(response.data)
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+    }, [])
+
     let title = "title"
     let image = "https://wallsdesk.com/wp-content/uploads/2016/09/Space-Wallpapers-HQ.jpg"
     return(
@@ -64,7 +74,7 @@ const AllTasks = () =>{
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" color="primary"onClick={()=>navigate(`/view/test`)}>View</Button>
+                                <Button size="small" color="primary"onClick={()=>navigate(`/taskdetail`)}>View</Button>
                                 <Button size="small" color="secondary" onClick={()=>navigate(`/edit/test`)}>Edit</Button>
                             </CardActions>
                         </Card>

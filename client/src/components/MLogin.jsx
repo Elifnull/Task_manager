@@ -37,7 +37,7 @@ const MLogin = () =>{
             .then((res) => {
                 console.log(res, "res");
                 console.log(res.data, "is res data!");
-                navigate("/home");
+                // navigate("/alltasks");
             })
             .catch((err) => {
                 console.log(err.response)

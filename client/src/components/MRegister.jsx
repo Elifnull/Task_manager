@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 import { FormLabel } from '@mui/material';
@@ -20,11 +21,12 @@ import { FormLabel } from '@mui/material';
 const MRegister = (props) => {
     const [confirmReg, setConfirmReg] = useState("");
     const [errors, setErrors] = useState({});
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
-        userName: "",
+        username: "",
         email: "",
         avatar: "",
         password: "",
@@ -51,7 +53,7 @@ const MRegister = (props) => {
                 setUser({
                     firstName: "",
                     lastName: "",
-                    userName:"",
+                    username:"",
                     email: "",
                     avatar: "",
                     password: "",
@@ -61,6 +63,7 @@ const MRegister = (props) => {
                     "You have successfully registered! You can now log in!",
                 );
                 setErrors({});
+                navigate(`/mytasks/${user.username}`);
             })
             .catch((err) => {
                 console.log(err);

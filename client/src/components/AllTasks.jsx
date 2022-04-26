@@ -1,6 +1,5 @@
-import react, { useEffect } from "react";
+import react, { useEffect, useState } from "react";
 import Header from "./Header";
-import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 // import * as React from 'react';
@@ -21,12 +20,14 @@ import { makeStyles } from "@mui/material";
 
 const AllTasks = () =>{
     const navigate = useNavigate();
-    const photoArray = [1,2,3,4,5,6]  //test variables for mapping
+    const [allTasks, setAllTasks] = useState([]);
+    const photoArray = [1,2,3,4,5,6,7,8,9,10]  //test variables for mapping
     
     useEffect(()=>{
         axios.get('http://localhost:8000/api/alltasks')
             .then(response =>{
                 console.log(response.data)
+                setAllTasks(response.data);
             })
             .catch(err =>{
                 console.log(err)
@@ -34,7 +35,7 @@ const AllTasks = () =>{
     }, [])
 
     let title = "title"
-    let image = "https://wallsdesk.com/wp-content/uploads/2016/09/Space-Wallpapers-HQ.jpg"
+    
     return(
         <>
         <CssBaseline /> {/* this adds basic Css styling to the whole app*/}
@@ -57,25 +58,27 @@ const AllTasks = () =>{
             </div>
             </main >
             <Container maxWidth="lg" style={{marginTop: "3vh"}}>
-                <Grid container spacing={6}>
-                    {photoArray?photoArray.map((value, index)=>(
+                <Grid container spacing={5}>
+                    {allTasks?allTasks.map((value, index)=>(
                     <Grid item key={index}>
-                        <Card style={{width:"20vh"}}>
-                            <CardMedia
-                                image={image}
-                                title={title}
-                            />
-                            <CardContent  >
+                        <Card style={{
+                            width:"20vh",
+                            height: "25vh"
+                                    }}>
+                            <CardContent style={{flexGrow:1,}}>
                                 <Typography variant="h5" gutterBottom>
-                                    test
+                                    {value.taskName}
                                 </Typography>
                                 <Typography>
-                                    test
+                                    {value.taskDesc}
                                 </Typography>
-                            </CardContent>
+                                <Typography>
+                                    Due: {value.taskDueDate}
+                                </Typography>
+                            </CardContent >
                             <CardActions>
-                                <Button size="small" color="primary"onClick={()=>navigate(`/taskdetail`)}>View</Button>
-                                <Button size="small" color="secondary" onClick={()=>navigate(`/edit/test`)}>Edit</Button>
+                                <Button size="small" color="primary"onClick={()=>navigate(`/taskdetail/${value._id}`)}>View</Button>
+                                <Button size="small" color="secondary" onClick={()=>navigate(`/taskupdate/${value._id}`)}>Edit</Button>
                             </CardActions>
                         </Card>
                     </Grid>

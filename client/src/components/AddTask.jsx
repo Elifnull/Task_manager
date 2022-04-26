@@ -2,12 +2,14 @@ import axios from "axios";
 import react, {useEffect, useState} from "react";
 import Header from "./Header";
 import {Typography, Box, CardContent, MenuItem ,CssBaseline,Grid, Container, Button, CardMedia, TextField, FormLabel, InputLabel, Select, FormControl} from '@mui/material/';
-
+import { useNavigate } from "react-router-dom";
 
 
 const AddTask = () =>{
     const current = new Date();
     const date = `${current.getFullYear()}-0${current.getMonth()}-${current.getDate()}`;
+    const navigate = useNavigate();
+    const [error, setError] = useState("");
 
     const [userArray, setUserArray] = useState([]);
     const [taskName, setTaskName] = useState("");
@@ -18,7 +20,25 @@ const AddTask = () =>{
     
     
 
-    const submitHandler = 'test'
+    const submitHandler = (element) => {
+        element.preventDefault();
+        axios.post(`http://localhost:8000/api/create`,{
+            taskName,
+            taskDesc,
+            taskDueDate,
+            taskAssignment,
+            createdBy
+        })
+            .then(response =>{
+                console.log(response);
+                navigate("/alltasks")
+            })
+            .catch(error => {
+                console.log(error.response.data.errors);
+                if(error.response){setError(error.response.data.errors)}
+                
+            })
+    }
 
     useEffect(()=>{
         axios.get('http://localhost:8000/api/allUsers')
@@ -28,6 +48,7 @@ const AddTask = () =>{
             })
             .catch(err => console.log(err))
     },[])
+
 
     return(
         <>
@@ -112,7 +133,8 @@ const AddTask = () =>{
                         </Grid>
                         <Grid item xs={10}>
                             <FormLabel error sx={{mb: 3}}>
-                                error
+                                {error? <Typography>Please Map through error messages here</Typography>:null}
+                                <Typography>errors will display above, look at code line 136 in code</Typography>
                             </FormLabel>
                         </Grid>
                     </Grid>

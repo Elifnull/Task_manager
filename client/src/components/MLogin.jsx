@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { FormLabel } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -47,7 +48,7 @@ const MLogin = () =>{
     };
 
     return(
-            <Container component="main" maxWidth="xs">
+            <Container maxWidth="xs">
             <CssBaseline />
             <Box
             sx={{
@@ -60,7 +61,7 @@ const MLogin = () =>{
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="p" variant="h5">
                 Sign in
             </Typography>
             <Box component="form" onSubmit={login} noValidate sx={{ mt: 1 }}>
@@ -86,6 +87,12 @@ const MLogin = () =>{
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
                 />
+                <Grid item xs={12}>
+                    <FormLabel
+                    color="primary"
+                    >{errorMessage? errorMessage:null}
+                    </FormLabel>
+                </Grid>
                 <Button
                 type="submit"
                 fullWidth
@@ -97,9 +104,6 @@ const MLogin = () =>{
                 </Button>
                 <Grid container>
                 <Grid item>
-                    <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                    </Link>
                 </Grid>
                 </Grid>
             </Box>

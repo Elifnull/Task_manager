@@ -9,7 +9,7 @@ const AddTask = () =>{
     const current = new Date();
     const date = `${current.getFullYear()}-0${current.getMonth()}-${current.getDate()}`;
     const navigate = useNavigate();
-    const [error, setError] = useState("");
+    const [error, setError] = useState({});
 
     const [userArray, setUserArray] = useState([]);
     const [taskName, setTaskName] = useState("");
@@ -57,13 +57,14 @@ const AddTask = () =>{
         <>
         <CssBaseline /> {/* this adds basic Css styling to the whole app*/}
             <Header/>
+            <Container maxWidth="md">
             <Box sx={{
                 marginTop: 8,
                 display: "flex",
                 flexDirection: 'column',
                 alignItems: 'center'
             }}>
-                <Box component="form" sx={{ mt: 3}} onSubmit={submitHandler}>
+                <Box component="form"  onSubmit={submitHandler}>
                     <Grid container spacing={2}>
                         <Grid item xs={10}>
                             <TextField fullWidth 
@@ -75,6 +76,11 @@ const AddTask = () =>{
                             autoFocus
                             onChange={(e)=>setTaskName(e.target.value)}
                             />
+                            <FormLabel
+                            color="primary"
+                            style={{marginLeft: "1vh"}}
+                            >{error.taskName? error.taskName.message:null}
+                            </FormLabel>
                         </Grid>
                         <Grid item xs={10}>
                             <TextField fullWidth 
@@ -88,7 +94,13 @@ const AddTask = () =>{
                             multiline
                             rows={5}
                             />
+                            <FormLabel xs={10}
+                            color="primary"
+                            style={{marginLeft: "1vh"}}
+                            >{error.taskDesc? error.taskDesc.message:null}
+                            </FormLabel>
                         </Grid>
+                        
                         <Grid item xs={10}>
                             <TextField fullWidth 
                             variant="outlined"
@@ -100,9 +112,14 @@ const AddTask = () =>{
                             onChange={(e)=> setTaskDueDate(e.target.value)}
                             InputLabelProps={{shrink:true}}
                             />
+                            <FormLabel xs={10}
+                            color="primary"
+                            style={{marginLeft: "1vh"}}
+                            >{error.taskDueDate? error.taskDueDate.message:null}
+                            </FormLabel>
                         </Grid>
                         <Grid item xs ={10}>
-                            <FormControl fullWidth>
+                            <FormControl fullWidth xs={10}>
                                 <InputLabel>Assign To</InputLabel>
                                 <Select
                                 label="Assign To"
@@ -111,13 +128,18 @@ const AddTask = () =>{
                                 >
                                 {userArray? userArray.map((value,index)=>{
                                     return(
-                                    <MenuItem key={index} value={value._id}>{value.username}</MenuItem>)
+                                    <MenuItem xs={10} key={index} value={value._id}>{value.username}</MenuItem>)
                                 }):null}
                                 </Select>
                             </FormControl>
+                            <FormLabel xs={10}
+                            color="primary"
+                            style={{marginLeft: "1vh"}}
+                            >{error.taskAssignment? "Task must be assigned":null}
+                            </FormLabel>
                         </Grid>
                         <Grid item xs ={10}>
-                            <FormControl fullWidth>
+                            <FormControl fullWidth xs={10}>
                                 <InputLabel>Created By</InputLabel>
                                 <Select
                                 label="Created By"
@@ -129,16 +151,10 @@ const AddTask = () =>{
                                 >
                                     {userArray? userArray.map((value,index)=>{
                                     return(
-                                    <MenuItem key={index} value={value._id}>{value.username}</MenuItem>)
+                                    <MenuItem xs={10} key={index} value={value._id}>{value.username}</MenuItem>)
                                 }):null}
                                 </Select>
                             </FormControl>
-                        </Grid>
-                        <Grid item xs={10}>
-                            <FormLabel error sx={{mb: 3}}>
-                                {error? <Typography>Please Map through error messages here</Typography>:null}
-                                <Typography>errors will display above, look at code line 136 in code</Typography>
-                            </FormLabel>
                         </Grid>
                     </Grid>
                     <Button 
@@ -148,6 +164,7 @@ const AddTask = () =>{
                     sx={{mt:5, mb: 3}}>Assign Task</Button>
                 </Box>
             </Box>
+        </Container>
         </>
     )
 }

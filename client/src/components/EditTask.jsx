@@ -83,6 +83,7 @@ const EditTask = () =>{
                 </Container>
             </div>
             </main > */}
+            <Container maxWidth="md">
             <Box sx={{
                 marginTop: 8,
                 display: "flex",
@@ -101,6 +102,11 @@ const EditTask = () =>{
                             autoFocus
                             onChange={(e)=>setTaskName(e.target.value)}
                             />
+                            <FormLabel
+                            color="primary"
+                            style={{marginLeft: "1vh"}}
+                            >{error.taskName? error.taskName.message:null}
+                            </FormLabel>
                         </Grid>
                         <Grid item xs={10}>
                             <TextField fullWidth 
@@ -114,6 +120,11 @@ const EditTask = () =>{
                             multiline
                             rows={5}
                             />
+                            <FormLabel xs={10}
+                            color="primary"
+                            style={{marginLeft: "1vh"}}
+                            >{error.taskDesc? error.taskDesc.message:null}
+                            </FormLabel>
                         </Grid>
                         <Grid item xs={10}>
                             <TextField fullWidth 
@@ -126,6 +137,11 @@ const EditTask = () =>{
                             onChange={(e)=> setTaskDueDate(e.target.value)}
                             InputLabelProps={{shrink:true}}
                             />
+                            <FormLabel xs={10}
+                            color="primary"
+                            style={{marginLeft: "1vh"}}
+                            >{error.taskDueDate? error.taskDueDate.message:null}
+                            </FormLabel>
                         </Grid>
                         <Grid item xs ={10}>
                             <FormControl fullWidth>
@@ -160,12 +176,6 @@ const EditTask = () =>{
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={10}>
-                            <FormLabel error sx={{mb: 3}}>
-                                {error? <Typography>Please Map through error messages here</Typography>:null}
-                                <Typography>errors will display above, look at code line 136 in code</Typography>
-                            </FormLabel>
-                        </Grid>
                     </Grid>
                     <Button 
                     color="primary"
@@ -174,6 +184,7 @@ const EditTask = () =>{
                     sx={{mt:5, mb: 3}}>Update Task</Button>
                 </Box>
             </Box>
+        </Container>
         </>
     )
 }

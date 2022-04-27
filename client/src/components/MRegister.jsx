@@ -63,15 +63,15 @@ const MRegister = (props) => {
                     "You have successfully registered! You can now log in!",
                 );
                 setErrors({});
-                navigate(`/mytasks/${user.username}`);
+                navigate("/alltasks")
             })
             .catch((err) => {
-                console.log(err);
+                console.log(err.response.data.errors);
                 setErrors(err.response.data.errors);
             })
     }
     return (
-            <Container component="main" maxWidth="xs">
+            <Container maxWidth="xs">
                 <CssBaseline />
                 <Box
                 sx={{
@@ -84,7 +84,7 @@ const MRegister = (props) => {
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
+                <Typography component="p" variant="h5">
                     Sign up
                 </Typography>
                 <Box component="form" noValidate onSubmit={register} sx={{ mt: 3 }}>
@@ -99,6 +99,11 @@ const MRegister = (props) => {
                         label="First Name"
                         autoFocus
                         />
+                        <FormLabel
+                        style={{marginLeft: "1vh"}}
+                        color="primary"
+                        >{errors.firstName? errors.firstName.message:null}
+                        </FormLabel>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
@@ -110,6 +115,11 @@ const MRegister = (props) => {
                         name="lastName"
                         onChange={(e) => handleChange(e)}
                         />
+                        <FormLabel
+                        style={{marginLeft: "1vh"}}
+                        color="primary"
+                        >{errors.lastName? errors.lastName.message:null}
+                        </FormLabel>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -121,6 +131,11 @@ const MRegister = (props) => {
                         label="User Name"
                         onChange={(e) => handleChange(e)}
                         />
+                        <FormLabel
+                        style={{marginLeft: "1vh"}}
+                        color="primary"
+                        >{errors.username?errors.username.message:null}
+                        </FormLabel>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -133,6 +148,11 @@ const MRegister = (props) => {
                         autoComplete="email"
                         onChange={(e) => handleChange(e)}
                         />
+                        <FormLabel
+                        style={{marginLeft: "1vh"}}
+                        color="primary"
+                        >{errors.email? errors.email.message:null}
+                        </FormLabel>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -144,6 +164,11 @@ const MRegister = (props) => {
                         autoComplete="new-password"
                         onChange={(e) => handleChange(e)}
                         />
+                        <FormLabel
+                        style={{marginLeft: "1vh"}}
+                        color="primary"
+                        >{errors.password? errors.password.message:null}
+                        </FormLabel>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
@@ -155,12 +180,11 @@ const MRegister = (props) => {
                         autoComplete="new-password"
                         onChange={(e) => handleChange(e)}
                         />
-                    </Grid>
-                    <Grid item xs={12}>
                         <FormLabel
-                        control={<Checkbox value="allowExtraEmails" color="primary" />}
-                        label="I want to receive inspiration, marketing promotions and updates via email."
-                        >Errors will go here</FormLabel>
+                        style={{marginLeft: "1vh"}}
+                        color="primary"
+                        >{errors.confirmPassword? errors.confirmPassword.message:null}
+                        </FormLabel>
                     </Grid>
                     </Grid>
                     <Button

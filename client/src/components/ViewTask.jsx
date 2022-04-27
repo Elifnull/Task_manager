@@ -6,32 +6,52 @@ import {Link, useNavigate, useParams } from "react-router-dom";
 
 
 const ViewTask = () => {
-    const [name, setName] = useState('');
-    const [photo, setPhoto] = useState('');
-    const [comment, setComment] = useState('');
+    const current = new Date();
+    const date = `${current.getFullYear()}-0${current.getMonth()}-${current.getDate()}`;
+
+    const [taskName, setTaskName] = useState("");
+    const [taskDesc, setTaskDesc] = useState("");
+    const [taskDueDate, setTaskDueDate] = useState("");
+    const [taskAssignment, setTaskAssignment] = useState('');
+    const [createdBy, setCreatedBy] = useState('');
+
+    const [assignedTo, setAssignedTo] = useState("");
+    const [assignedBy, setAssignedBy] = useState("");
 
     const { id } = useParams();
     const navigate = useNavigate();
 
     const deleteHandlier = (idbelow) => {
-        axios.delete(`http://localhost:8000/api/photos/${idbelow}`)
+        axios.delete(`http://localhost:8000/api/delete/${idbelow}`)
             .then( response => {
                 console.log(response)
-                navigate('/')
+                navigate('/alltasks')
             })
             .catch(err => console.log(err))
     };
 
     useEffect(()=>{
-        axios.get(`http://localhost:8000/api/photos/${id}`)
-            .then(success => {
-                console.log(success.data)
-                setName(success.data.name);
-                setPhoto(success.data.picture);
-                setComment(success.data.comment);
+        axios.get(`http://localhost:8000/api/task/${id}`)
+            .then(response => {
+                console.log(response.data)
+                setTaskName(response.data.taskName);
+                setTaskDesc(response.data.taskDesc);
+                setTaskDueDate(response.data.taskDueDate);
+                setTaskAssignment(response.data.taskAssignment);
+                setCreatedBy(response.data.createdBy);
             })
-            .then(err => console.log(err));
+            .catch(err => console.log(err))
     },[id])
+
+    // if(taskAssignment){
+    //     useEffect(()=>{
+    //         axios.get(`http://localhost:8000/api/task/${taskAssignment}`)
+    //             .then(response => {
+    //                 setAssignedBy(response.data.)
+    //             })
+    //     })
+    // }
+
     return(
         <>
             <CssBaseline />
@@ -39,22 +59,28 @@ const ViewTask = () => {
             <Container maxWidth="lg" >
                 <Grid container spacing={6}>
                     <Grid item>
-                        <Card>
-                            <CardMedia
-                                image="{photo}"
-                                title="{name}"
-                            />
+                        <Card style={{
+                            marginTop: "3vh",
+                            display: "flex",
+                            height: "100%",
+                            width: '80vh',
+                            flexDirection: "column",
+                            padding: "1vh"
+                            }}>
                             <CardContent >
-                                <Typography variant="h5" gutterBottom>
-                                    Test Data
+                                <Typography variant="h3" gutterBottom>
+                                    {taskName}
                                 </Typography>
-                                <Typography>
-                                    Test comments
+                                <Typography variant="h4" gutterBottom>
+                                    {taskDesc}
+                                </Typography >
+                                <Typography variant="h5">
+                                    Due by: {taskDueDate}
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button size="small" color="primary"onClick={()=>navigate(`/edit/${id}`)}>Edit</Button>
-                                <Button size="small" color="warning" onClick={()=>deleteHandlier(id)}>Delete</Button>
+                                <Button size="large"  color="primary"onClick={()=>navigate(`/taskupdate/${id}`)}>Edit</Button>
+                                <Button size="large" color="error" onClick={()=>deleteHandlier(id)}>Delete</Button>
                             </CardActions>
                         </Card>
                     </Grid>

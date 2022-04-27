@@ -66,6 +66,23 @@ const EditTask = () =>{
         <>
         <CssBaseline /> {/* this adds basic Css styling to the whole app*/}
             <Header/>
+            {/* <main>
+            <div >
+                <Container maxWidth='sm' style={{marginTop: "3vh"}}>
+                <Typography gutterBottom variant="h2" color="textPrimary" align="center" >All Tasks</Typography>
+                <Typography paragraph variant="h6" color="textSecondary" align="center" >Hi this is my test for the Task viewer. is it wrapping well? or is it not wrapping well</Typography>
+                <div>
+                <Grid container spacing={2} justifyContent='center'>
+                    <Grid item>
+                    <Button onClick={()=>navigate('/addtask')} variant="outlined" color="primary">
+                            Add Task
+                        </Button>
+                    </Grid>
+                </Grid>
+                </div>
+                </Container>
+            </div>
+            </main > */}
             <Box sx={{
                 marginTop: 8,
                 display: "flex",

@@ -34,7 +34,7 @@ const AddTask = () =>{
                 navigate("/alltasks")
             })
             .catch(error => {
-                console.log(error.response.data.errors);
+                console.log(error.response.data);
                 if(error.response){setError(error.response.data.errors)}
                 
             })

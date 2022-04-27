@@ -65,7 +65,7 @@ const Header = () =>{
             />
             </IconButton>
             <Typography variant="h4" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-                Hello {user? user: null}
+                Hello {user? user.username: null}
             </Typography>
             <Box container>
             <Button color="inherit" onClick={logout} size='large' endIcon={<LogoutIcon fontSize="large"/>} style={{marginRight: "3vh"}}>Logout</Button>

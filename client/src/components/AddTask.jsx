@@ -1,7 +1,7 @@
 import axios from "axios";
 import react, {useEffect, useState} from "react";
 import Header from "./Header";
-import {Typography, Box, CardContent, MenuItem ,CssBaseline,Grid, Container, Button, CardMedia, TextField, FormLabel, InputLabel, Select, FormControl} from '@mui/material/';
+import {Typography, Paper, Box, CardContent, MenuItem ,CssBaseline,Grid, Container, Button, CardMedia, TextField, FormLabel, InputLabel, Select, FormControl} from '@mui/material/';
 import { useNavigate } from "react-router-dom";
 
 
@@ -57,16 +57,20 @@ const AddTask = () =>{
         <>
         <CssBaseline /> {/* this adds basic Css styling to the whole app*/}
             <Header/>
-            <Container maxWidth="md">
-            <Box sx={{
+        <Container maxWidth="md" sx={{
+            backgroundColor: "#E5E4E2",
+            height: '100vh',
+            overflow: 'auto',}}>
+            <Box fullWidth sx={{
                 marginTop: 8,
-                display: "flex",
-                flexDirection: 'column',
-                alignItems: 'center'
+            }}>
+            <Paper sx={{
+                width: "100%",
+                padding: "3vh"
             }}>
                 <Box component="form"  onSubmit={submitHandler}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={10}>
+                    <Grid container spacing={4}>
+                        <Grid item xs={12}>
                             <TextField fullWidth 
                             variant="outlined"
                             name="taskName"
@@ -82,7 +86,7 @@ const AddTask = () =>{
                             >{error.taskName? error.taskName.message:null}
                             </FormLabel>
                         </Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs={12}>
                             <TextField fullWidth 
                             variant="outlined"
                             name="taskDesc"
@@ -94,14 +98,14 @@ const AddTask = () =>{
                             multiline
                             rows={5}
                             />
-                            <FormLabel xs={10}
+                            <FormLabel xs={12}
                             color="primary"
                             style={{marginLeft: "1vh"}}
                             >{error.taskDesc? error.taskDesc.message:null}
                             </FormLabel>
                         </Grid>
                         
-                        <Grid item xs={10}>
+                        <Grid item xs={12}>
                             <TextField fullWidth 
                             variant="outlined"
                             name="comment"
@@ -112,13 +116,13 @@ const AddTask = () =>{
                             onChange={(e)=> setTaskDueDate(e.target.value)}
                             InputLabelProps={{shrink:true}}
                             />
-                            <FormLabel xs={10}
+                            <FormLabel xs={12}
                             color="primary"
                             style={{marginLeft: "1vh"}}
                             >{error.taskDueDate? error.taskDueDate.message:null}
                             </FormLabel>
                         </Grid>
-                        <Grid item xs ={10}>
+                        <Grid item xs ={12}>
                             <FormControl fullWidth xs={10}>
                                 <InputLabel>Assign To</InputLabel>
                                 <Select
@@ -132,14 +136,14 @@ const AddTask = () =>{
                                 }):null}
                                 </Select>
                             </FormControl>
-                            <FormLabel xs={10}
+                            <FormLabel xs={12}
                             color="primary"
                             style={{marginLeft: "1vh"}}
                             >{error.taskAssignment? "Task must be assigned":null}
                             </FormLabel>
                         </Grid>
-                        <Grid item xs ={10}>
-                            <FormControl fullWidth xs={10}>
+                        <Grid item xs ={12}>
+                            <FormControl fullWidth xs={12}>
                                 <InputLabel>Created By</InputLabel>
                                 <Select
                                 label="Created By"
@@ -151,7 +155,7 @@ const AddTask = () =>{
                                 >
                                     {userArray? userArray.map((value,index)=>{
                                     return(
-                                    <MenuItem xs={10} key={index} value={value._id}>{value.username}</MenuItem>)
+                                    <MenuItem xs={12} key={index} value={value._id}>{value.username}</MenuItem>)
                                 }):null}
                                 </Select>
                             </FormControl>
@@ -163,9 +167,10 @@ const AddTask = () =>{
                     variant="contained" 
                     sx={{mt:5, mb: 3}}>Assign Task</Button>
                 </Box>
+                </Paper>
             </Box>
-        </Container>
-        </>
+    </Container>
+    </>
     )
 }
 

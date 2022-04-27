@@ -1,7 +1,7 @@
 import axios from "axios";
 import react, {useEffect, useState} from "react";
 import Header from "./Header";
-import {Typography, Box, CardContent, MenuItem ,CssBaseline,Grid, Container, Button, CardMedia, TextField, FormLabel, InputLabel, Select, FormControl} from '@mui/material/';
+import {Typography, Box, Paper, CardContent, MenuItem ,CssBaseline,Grid, Container, Button, CardMedia, TextField, FormLabel, InputLabel, Select, FormControl} from '@mui/material/';
 import { useNavigate, useParams } from "react-router-dom";
 
 
@@ -66,33 +66,20 @@ const EditTask = () =>{
         <>
         <CssBaseline /> {/* this adds basic Css styling to the whole app*/}
             <Header/>
-            {/* <main>
-            <div >
-                <Container maxWidth='sm' style={{marginTop: "3vh"}}>
-                <Typography gutterBottom variant="h2" color="textPrimary" align="center" >All Tasks</Typography>
-                <Typography paragraph variant="h6" color="textSecondary" align="center" >Hi this is my test for the Task viewer. is it wrapping well? or is it not wrapping well</Typography>
-                <div>
-                <Grid container spacing={2} justifyContent='center'>
-                    <Grid item>
-                    <Button onClick={()=>navigate('/addtask')} variant="outlined" color="primary">
-                            Add Task
-                        </Button>
-                    </Grid>
-                </Grid>
-                </div>
-                </Container>
-            </div>
-            </main > */}
-            <Container maxWidth="md">
-            <Box sx={{
+            <Container maxWidth="md" sx={{
+            backgroundColor: "#E5E4E2",
+            height: '100vh',
+            overflow: 'auto',}}>
+            <Box fullWidth sx={{
                 marginTop: 8,
-                display: "flex",
-                flexDirection: 'column',
-                alignItems: 'center'
             }}>
+                <Paper sx={{
+                width: "100%",
+                padding: "3vh"
+                }}>
                 <Box component="form" sx={{ mt: 3}} onSubmit={submitHandler}>
                     <Grid container spacing={2}>
-                        <Grid item xs={10}>
+                        <Grid item xs={12}>
                             <TextField fullWidth 
                             variant="outlined"
                             name="taskName"
@@ -108,7 +95,7 @@ const EditTask = () =>{
                             >{error.taskName? error.taskName.message:null}
                             </FormLabel>
                         </Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs={12}>
                             <TextField fullWidth 
                             variant="outlined"
                             name="taskDesc"
@@ -120,13 +107,13 @@ const EditTask = () =>{
                             multiline
                             rows={5}
                             />
-                            <FormLabel xs={10}
+                            <FormLabel xs={12}
                             color="primary"
                             style={{marginLeft: "1vh"}}
                             >{error.taskDesc? error.taskDesc.message:null}
                             </FormLabel>
                         </Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs={12}>
                             <TextField fullWidth 
                             variant="outlined"
                             name="comment"
@@ -137,13 +124,13 @@ const EditTask = () =>{
                             onChange={(e)=> setTaskDueDate(e.target.value)}
                             InputLabelProps={{shrink:true}}
                             />
-                            <FormLabel xs={10}
+                            <FormLabel xs={12}
                             color="primary"
                             style={{marginLeft: "1vh"}}
                             >{error.taskDueDate? error.taskDueDate.message:null}
                             </FormLabel>
                         </Grid>
-                        <Grid item xs ={10}>
+                        <Grid item xs ={12}>
                             <FormControl fullWidth>
                                 <InputLabel>Assign To</InputLabel>
                                 <Select
@@ -158,7 +145,7 @@ const EditTask = () =>{
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs ={10}>
+                        <Grid item xs ={12}>
                             <FormControl fullWidth>
                                 <InputLabel>Created By</InputLabel>
                                 <Select
@@ -183,6 +170,7 @@ const EditTask = () =>{
                     variant="contained" 
                     sx={{mt:5, mb: 3}}>Update Task</Button>
                 </Box>
+                </Paper>
             </Box>
         </Container>
         </>

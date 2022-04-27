@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { CardMedia,Card, CardActions, CardContent } from "@mui/material";
+import { CardMedia,Card, CardActions, CardContent, Paper } from "@mui/material";
 import { makeStyles } from "@mui/material";
 
 const AllTasks = () =>{
@@ -37,10 +37,10 @@ const AllTasks = () =>{
     let title = "title"
     
     return(
-        <>
+        < React.Fragment >
         <CssBaseline /> {/* this adds basic Css styling to the whole app*/}
             <Header/>
-            <main>
+            <main >
             <div >
                 <Container maxWidth='sm' style={{marginTop: "3vh"}}>
                 <Typography gutterBottom variant="h2" color="textPrimary" align="center" >All Tasks</Typography>
@@ -57,7 +57,11 @@ const AllTasks = () =>{
                 </Container>
             </div>
             </main >
-            <Container maxWidth="lg" style={{marginTop: "3vh"}}>
+            <Container maxWidth="lg" sx={{
+            backgroundColor: "#E5E4E2",
+            flexGrow: 1,
+            height: '100vh',
+            overflow: 'auto',}} style={{marginTop: "3vh"}}>
                 <Grid container spacing={5}>
                     {allTasks?allTasks.map((value, index)=>(
                     <Grid item key={index}>
@@ -86,7 +90,8 @@ const AllTasks = () =>{
                     )):null}
                 </Grid>
             </Container>
-        </>
+        </React.Fragment>
+        
     )
 }
 

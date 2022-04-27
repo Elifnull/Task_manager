@@ -56,7 +56,10 @@ const ViewTask = () => {
         <>
             <CssBaseline />
             <Header/>
-            <Container maxWidth="lg" >
+            <Container maxWidth="lg" sx={{
+            backgroundColor: "#E5E4E2",
+            height: '100vh',
+            overflow: 'auto',}}>
                 <Grid container spacing={6}>
                     <Grid item>
                         <Card style={{

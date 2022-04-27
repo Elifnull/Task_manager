@@ -28,7 +28,10 @@ const AddTask = () =>{
             taskDueDate,
             taskAssignment,
             createdBy
-        })
+        },
+        {
+            withCredentials: true,
+        },)
             .then(response =>{
                 console.log(response);
                 navigate("/alltasks")

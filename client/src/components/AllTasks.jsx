@@ -44,7 +44,7 @@ const AllTasks = () =>{
             <div >
                 <Container maxWidth='sm' style={{marginTop: "3vh"}}>
                 <Typography gutterBottom variant="h2" color="textPrimary" align="center" >All Tasks</Typography>
-                <Typography paragraph variant="h6" color="textSecondary" align="center" >Hi this is my test for the Task viewer. is it wrapping well? or is it not wrapping well</Typography>
+                <Typography paragraph variant="h6" color="textSecondary" align="center" >All Assigned task reside here</Typography>
                 <div>
                 <Grid container spacing={2} justifyContent='center'>
                     <Grid item>

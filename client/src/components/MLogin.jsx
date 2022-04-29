@@ -56,6 +56,7 @@ const MLogin = () =>{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                height: "30vh",
             }}
             >
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>

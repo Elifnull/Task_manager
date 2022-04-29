@@ -62,14 +62,16 @@ const AllTasks = () =>{
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',}} style={{marginTop: "3vh"}}>
-                <Grid container spacing={5}>
+                <Grid container spacing={12}>
                     {allTasks?allTasks.map((value, index)=>(
                     <Grid item key={index}>
                         <Card style={{
-                            width:"20vh",
-                            height: "25vh"
-                                    }}>
-                            <CardContent style={{flexGrow:1,}}>
+                            width:"25vh",
+                            height: "25vh",
+                            flexGrow: 1,
+                            overflow: 'auto'
+                        }}>
+                            <CardContent style={{flexGrow:1,overflow: 'auto'}}>
                                 <Typography variant="h5" gutterBottom>
                                     {value.taskName}
                                 </Typography>

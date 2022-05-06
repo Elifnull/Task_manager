@@ -21,3 +21,5 @@ require("./routes/user.routes")(app)
 app.listen(8000, ()=>{
     console.log("Listening on Port 8000");
 })
+
+//Server Express and cors readup
